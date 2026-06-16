@@ -1,0 +1,10 @@
+{
+  "name": "atz-vercel-ready-website",
+  "version": "1.2.0",
+  "private": true,
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo aTz static HTML site is ready",
+    "start": "npx serve ."
+  }
+}
