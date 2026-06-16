@@ -1,10 +1,10 @@
 {
-  "name": "atz-vercel-ready-website",
-  "version": "1.2.0",
+  "name": "atz-final-ready-to-host-v9-ads-first",
+  "version": "9.0.0",
   "private": true,
   "scripts": {
     "dev": "npx serve .",
-    "build": "echo aTz static HTML site is ready",
+    "build": "echo aTz static website is ready",
     "start": "npx serve ."
   }
 }

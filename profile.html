@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<meta name="description" content="aTz Page X with polished ad placements."/>
-<title>Page X | aTz</title>
+<meta name="description" content="Manage your aTz XP profile."/>
+<title>Profile | aTz</title>
 
 <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
 <link rel="manifest" href="site.webmanifest"/>
 
 <link rel="stylesheet" href="style.css"/>
 </head>
-<body>
+<body data-protected="true">
 <div class="page-shell">
 
 <header class="site-header">
@@ -25,7 +25,7 @@
       <div class="nav-main">
         <a href="index.html" class="nav-icon " title="Home" aria-label="Home"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg></a>
 <a href="leaderboard.html" class="nav-icon " title="Leaderboard" aria-label="Leaderboard"><svg viewBox="0 0 24 24"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v4a5 5 0 0 1-10 0V4z"/><path d="M7 6H4a3 3 0 0 0 3 3"/><path d="M17 6h3a3 3 0 0 1-3 3"/></svg></a>
-<a href="profile.html" class="nav-icon " title="Profile" aria-label="Profile"><svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="7" r="4"/></svg></a>
+<a href="profile.html" class="nav-icon active" title="Profile" aria-label="Profile"><svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="7" r="4"/></svg></a>
 <a href="about.html" class="nav-icon " title="About" aria-label="About"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg></a>
 <a href="privacy.html" class="nav-icon " title="Privacy Policy" aria-label="Privacy Policy"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></a>
 <a href="terms.html" class="nav-icon " title="Terms and Conditions" aria-label="Terms and Conditions"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8"/><path d="M8 17h5"/></svg></a>
@@ -56,7 +56,7 @@
 <a href="u.html" class="">u</a>
 <a href="v.html" class="">v</a>
 <a href="w.html" class="">w</a>
-<a href="x.html" class="active">x</a>
+<a href="x.html" class="">x</a>
 <a href="y.html" class="">y</a>
 <a href="z.html" class="">z</a></div>
     </div>
@@ -72,8 +72,8 @@
 
 <main>
 <div class="stack">
-  
-  
+
+
 
 <section class="ads-wall">
   <div class="referral-banner-grid">
@@ -165,13 +165,29 @@
 <div class="content-after-ads">
 <p class="bottom-start-note">Content starts below the ads.</p>
 <section class="card">
-    <div class="card-inner center">
-      <div class="kicker">Page X</div>
-      <div class="page-letter">x</div>
-      <p>This is Page X. Use the links below to move between all A-Z pages.</p>
-      <div class="quick-links"><a href="a.html">a</a><a href="b.html">b</a><a href="c.html">c</a><a href="d.html">d</a><a href="e.html">e</a><a href="f.html">f</a><a href="g.html">g</a><a href="h.html">h</a><a href="i.html">i</a><a href="j.html">j</a><a href="k.html">k</a><a href="l.html">l</a><a href="m.html">m</a><a href="n.html">n</a><a href="o.html">o</a><a href="p.html">p</a><a href="q.html">q</a><a href="r.html">r</a><a href="s.html">s</a><a href="t.html">t</a><a href="u.html">u</a><a href="v.html">v</a><a href="w.html">w</a><a href="y.html">y</a><a href="z.html">z</a></div>
+  <div class="card-inner">
+    <div class="kicker">Profile</div>
+    <h1>Your XP profile.</h1>
+    <p>Keep your profile updated so your leaderboard rank can appear correctly.</p>
+    <div class="stats">
+      <div class="stat"><strong class="xp-total">0</strong><span>Total XP</span></div>
+      <div class="stat"><strong class="profile-country">Not set</strong><span>Country</span></div>
+      <div class="stat"><strong class="profile-state">Not set</strong><span>State</span></div>
     </div>
-  </section>
+    <form class="form" id="profile-form">
+      <input class="input" id="profile-username" type="text" placeholder="Username" minlength="3" required/>
+      <div class="form-grid">
+        <input class="input" id="profile-country" type="text" placeholder="Country" required/>
+        <input class="input" id="profile-state" type="text" placeholder="State" required/>
+      </div>
+      <button class="btn primary" type="submit">Save Profile</button>
+    </form>
+    <div class="btn-row">
+      <button class="btn" id="daily-checkin" type="button">Claim Daily XP</button>
+      <a class="btn" href="leaderboard.html">View Leaderboard</a>
+    </div>
+  </div>
+</section>
 </div>
 </div>
 </main>
