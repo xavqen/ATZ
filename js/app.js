@@ -436,4 +436,130 @@ document.addEventListener("DOMContentLoaded", async () => {
   initXp();
 
   if (supabase) supabase.auth.onAuthStateChange(() => renderAuth());
+  initPageNavigation();
 });
+
+// Page navigation, footer replace, and auto-advance A->Z
+function initPageNavigation() {
+  try {
+    const FOOTER_TEXT = "© 2026 | aTz | Ads show ";
+    const pages = Array.from({ length: 26 }, (_, i) => String.fromCharCode(97 + i)); // a..z
+    const page = pageName(); // e.g. 'a', 'index', 'profile'
+
+    // Replace footer text on all pages
+    const footer = document.querySelector("footer.footer");
+    if (footer) footer.textContent = FOOTER_TEXT;
+
+    // Build navigation UI
+    const navWrap = document.createElement("div");
+    navWrap.className = "atz-page-nav";
+    navWrap.innerHTML = `
+      <button class="atz-nav-btn atz-prev" title="Previous page" aria-label="Previous page">◀</button>
+      <label class="atz-auto-toggle"><input type="checkbox" class="atz-toggle-input"/><span class="atz-toggle-label">Auto</span></label>
+      <button class="atz-nav-btn atz-next" title="Next page" aria-label="Next page">▶</button>
+    `;
+
+    // minimal styles
+    const style = document.createElement("style");
+    style.textContent = `
+      .atz-page-nav{position:fixed;right:14px;bottom:14px;display:flex;gap:8px;align-items:center;z-index:9999}
+      .atz-nav-btn{background:#0b5; border:0;padding:8px 10px;border-radius:6px;color:#012;font-weight:700;cursor:pointer}
+      .atz-auto-toggle{display:inline-flex;align-items:center;gap:6px;background:rgba(0,0,0,0.6);padding:6px 8px;border-radius:8px;color:#fff;font-size:13px}
+      .atz-auto-toggle input{width:18px;height:18px}
+      @media (max-width:420px){.atz-page-nav{right:8px;bottom:8px}}
+    `;
+
+    document.body.appendChild(style);
+    document.body.appendChild(navWrap);
+
+    const prevBtn = navWrap.querySelector(".atz-prev");
+    const nextBtn = navWrap.querySelector(".atz-next");
+    const toggleInput = navWrap.querySelector(".atz-toggle-input");
+
+    // Helpers
+    function idxOfLetter(letter) {
+      return pages.indexOf((letter || "").toLowerCase());
+    }
+
+    function toHref(letter) {
+      return `${letter}.html`;
+    }
+
+    function navigateToLetter(letter) {
+      if (!letter) return;
+      const href = toHref(letter);
+      location.href = href;
+    }
+
+    // Determine current position in a..z
+    const cur = page.toLowerCase();
+    const curIdx = idxOfLetter(cur);
+
+    function getNextLetter() {
+      if (curIdx === -1) return pages[0];
+      return pages[(curIdx + 1) % pages.length];
+    }
+
+    function getPrevLetter() {
+      if (curIdx === -1) return pages[pages.length - 1];
+      return pages[(curIdx - 1 + pages.length) % pages.length];
+    }
+
+    // Button actions
+    nextBtn.addEventListener("click", () => {
+      const next = getNextLetter();
+      navigateToLetter(next);
+    });
+
+    prevBtn.addEventListener("click", () => {
+      const prev = getPrevLetter();
+      navigateToLetter(prev);
+    });
+
+    // Auto advance logic
+    const STORAGE_KEY = "atz_auto_pages";
+    let intervalId = null;
+
+    function startAuto() {
+      stopAuto();
+      intervalId = setInterval(() => {
+        const next = getNextLetter();
+        location.href = toHref(next);
+      }, 20000);
+    }
+
+    function stopAuto() {
+      if (intervalId) clearInterval(intervalId);
+      intervalId = null;
+    }
+
+    // load persisted state
+    try {
+      const val = localStorage.getItem(STORAGE_KEY);
+      if (val === "1") {
+        toggleInput.checked = true;
+        startAuto();
+      }
+    } catch (e) {}
+
+    toggleInput.addEventListener("change", (e) => {
+      try {
+        if (toggleInput.checked) {
+          localStorage.setItem(STORAGE_KEY, "1");
+          startAuto();
+        } else {
+          localStorage.removeItem(STORAGE_KEY);
+          stopAuto();
+        }
+      } catch (err) {}
+    });
+
+    // keyboard support
+    window.addEventListener("keydown", (ev) => {
+      if (ev.key === "ArrowRight") nextBtn.click();
+      if (ev.key === "ArrowLeft") prevBtn.click();
+    });
+  } catch (err) {
+    console.error("initPageNavigation error", err);
+  }
+}
