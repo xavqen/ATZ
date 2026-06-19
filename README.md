@@ -1,76 +1,83 @@
-# aTz Final Ready-to-Host Website
+# aTz Next.js Virtualized Ads + Supabase Auth
 
-This is the final ready-to-host version of aTz.
+This is a production-oriented Next.js App Router project.
 
-## Included Features
+## Added
 
-- Clean and responsive UI
-- A-Z pages
-- Icon-based header
-- User profile icon
-- Login, signup, logout, and forgot password
-- Supabase authentication
-- XP profile system
-- Country and state leaderboard
-- Privacy Policy, Terms and Conditions, and About pages
-- Sitemap and robots.txt
-- Vercel configuration
-- All provided ad formats integrated:
-  - Popunder
-  - Native Banner
-  - Social Bar
-  - Smartlink
-  - 468x60
-  - 300x250
-  - 160x300
-  - 160x600
-  - 320x50
-  - 728x90
+- Auto-scroll button at 0.5 page per second
+- Supabase login/signup with email and password
+- Supabase profile page
+- Virtualized 1,000,000-slot ad wall
+- Only 3–5 ad rows rendered at a time
+- GPT-style lazy slot lifecycle
+- Batched GPT refreshes
+- `enableSingleRequest()` SRA pattern
+- Strict Intersection Observer lazy loading
+- Slot cleanup with `destroySlots()`
+- Fast ad loading with iframe isolation and fallback ads
+- Edge API route for Redis-cached ad metadata
+- Clean pages without 1M ad wall:
+  - About
+  - Leaderboard
+  - Profile
+  - Privacy
+  - Terms
+  - Login
+  - Signup
+  - Forgot Password
 
-## Important Ad Policy Note
+## Install
 
-XP is not awarded for ad clicks, ad views, popunders, or forced ad activity.
-XP is awarded only for genuine site engagement.
+```bash
+npm install
+npm run dev
+```
 
-## Supabase Setup
+## Build
 
-1. Create a Supabase project.
-2. Open the Supabase SQL Editor.
-3. Run:
+```bash
+npm run build
+```
+
+## Vercel
+
+```txt
+Framework Preset: Next.js
+Build Command: npm run build
+Output Directory: .next
+```
+
+Do not set Output Directory to `public`.
+
+## Environment Variables
+
+```txt
+NEXT_PUBLIC_SITE_URL=https://atz-pages.vercel.app
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+
+NEXT_PUBLIC_GAM_NETWORK_CODE=1234567
+NEXT_PUBLIC_GAM_AD_UNIT_PREFIX=/1234567/atz
+
+UPSTASH_REDIS_REST_URL=
+UPSTASH_REDIS_REST_TOKEN=
+AD_METADATA_ORIGIN=
+```
+
+## Supabase
+
+Run:
 
 ```txt
 supabase/schema.sql
 ```
 
-4. Open:
+## Important
 
-```txt
-js/supabase-config.js
-```
-
-5. Paste your Supabase Project URL and anon public key.
-
-## Vercel Deploy Settings
-
-- Framework Preset: Other
-- Build Command: empty or `npm run build`
-- Output Directory: empty
-- Environment Variables: none required for this static version
-
-## Google Search Console
-
-After deployment, submit:
-
-```txt
-https://atz-pages.vercel.app/sitemap.xml
-```
-
-If you use a custom domain, update `sitemap.xml` and `robots.txt` with your real domain.
+Do not render one million live ads at once. This project renders a one-million logical ad platform safely through virtualization.
 
 
-## v9 Update
-
-- Added Adsterra referral image banners to every page.
-- All pages now show ads first.
-- Main content and A-Z page navigation start after the ad section.
-- This encourages scrolling before users reach page content or navigation.
+## v14 Compact Wall
+- Ads are grouped into dense clusters so users can see many ads in one screen.
+- Each virtual cluster contains 10 ads.
+- Better desktop visibility with tight spacing similar to a compact ad dashboard.

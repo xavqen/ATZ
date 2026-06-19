@@ -1,7 +1,4 @@
 
--- aTz Supabase setup.
--- Run this file in the Supabase SQL Editor.
-
 create extension if not exists "pgcrypto";
 
 create table if not exists public.profiles (
@@ -12,9 +9,6 @@ create table if not exists public.profiles (
   xp integer not null default 0,
   created_at timestamptz not null default now()
 );
-
-alter table public.profiles add column if not exists country text;
-alter table public.profiles add column if not exists state text;
 
 create table if not exists public.xp_events (
   id uuid primary key default gen_random_uuid(),
@@ -90,9 +84,7 @@ declare
   v_awarded integer := 0;
   v_total integer := 0;
 begin
-  if v_user is null then
-    raise exception 'not authenticated';
-  end if;
+  if v_user is null then raise exception 'not authenticated'; end if;
 
   v_points := case p_event_type
     when 'page_visit' then 2
@@ -108,31 +100,21 @@ begin
   end if;
 
   insert into public.xp_events (user_id, event_type, page, xp, event_key)
-  values (
-    v_user,
-    p_event_type,
-    left(coalesce(p_page, ''), 80),
-    v_points,
-    left(p_event_key, 160)
-  )
+  values (v_user, p_event_type, left(coalesce(p_page, ''), 80), v_points, left(p_event_key, 160))
   on conflict (user_id, event_key) do nothing
   returning xp into v_awarded;
 
   if v_awarded is not null then
     insert into public.profiles (id, xp)
     values (v_user, v_awarded)
-    on conflict (id) do update
-    set xp = public.profiles.xp + excluded.xp;
+    on conflict (id) do update set xp = public.profiles.xp + excluded.xp;
   else
     v_awarded := 0;
   end if;
 
   select xp into v_total from public.profiles where id = v_user;
 
-  return jsonb_build_object(
-    'awarded_xp', v_awarded,
-    'total_xp', coalesce(v_total, 0)
-  );
+  return jsonb_build_object('awarded_xp', v_awarded, 'total_xp', coalesce(v_total, 0));
 end;
 $$;
 

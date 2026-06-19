@@ -1,0 +1,1 @@
+v14 compact wall scan: project patched for closer multi-ad layout.

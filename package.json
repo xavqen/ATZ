@@ -1,10 +1,27 @@
 {
-  "name": "atz-final-ready-to-host-v9-ads-first",
-  "version": "9.0.0",
+  "name": "atz-nextjs-virtualized-ads-auth-v13-fixed",
+  "version": "13.0.0",
   "private": true,
   "scripts": {
-    "dev": "npx serve .",
-    "build": "echo aTz static website is ready",
-    "start": "npx serve ."
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.48.1",
+    "next": "^16.2.6",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-window": "^1.8.11"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "@types/react-window": "^1.8.8",
+    "eslint": "^9.17.0",
+    "eslint-config-next": "^16.2.6",
+    "typescript": "^5.7.3"
   }
 }
