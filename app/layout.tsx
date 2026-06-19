@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   },
   description: "Next.js App Router website with virtualized ads, auto scrolling, Supabase auth, and efficient ad loading.",
   icons: {
-    icon: "/favicon.ico"
+    icon: "./favicon.svg"
   }
 };
 
