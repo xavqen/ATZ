@@ -8,6 +8,9 @@ export const metadata: Metadata = {
     template: "%s | aTz"
   },
   description: "Next.js App Router website with virtualized ads, auto scrolling, Supabase auth, and efficient ad loading.",
+  icons: {
+    icon: "/favicon.ico"
+  }
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
