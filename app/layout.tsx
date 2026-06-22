@@ -18,13 +18,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
-        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-GH3TQSFC26" />
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-0967BCY26L" />
         <Script id="google-analytics">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-GH3TQSFC26');
+            gtag('config', 'G-0967BCY26L');
           `}
         </Script>
       </head>
